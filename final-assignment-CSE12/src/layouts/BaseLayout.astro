@@ -1,18 +1,43 @@
 ---
-const { title } = Astro.props;
+const { title = "NYPL Explorer" } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>{title}</title>
+
     <slot name="head" />
+
     <script src="/scripts/nav.js" defer></script>
 
     <style>
+      .skip-link {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.6rem 0.9rem;
+        background: #111827;
+        color: #fff;
+        border-radius: 0.5rem;
+        transform: translateY(-200%);
+        transition: transform 0.15s ease;
+        z-index: 10000;
+        text-decoration: none;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+        outline: 3px solid #facc15;
+        outline-offset: 3px;
+      }
+
       .site-header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         background: #ffffff;
+        position: relative; 
       }
 
       .nav-inner {
@@ -62,9 +87,10 @@ const { title } = Astro.props;
         height: 2px;
         background: #111827;
         border-radius: 999px;
-        + span {
-          margin-top: 4px;
-        }
+        margin-top: 4px;
+      }
+      .nav-toggle span:first-child {
+        margin-top: 0;
       }
 
       /* Mobile */
@@ -98,6 +124,7 @@ const { title } = Astro.props;
           padding: 0.5rem 0.75rem;
         }
       }
+
       .site-footer {
         margin-top: 3rem;
         padding: 1.5rem 1rem;
@@ -128,44 +155,53 @@ const { title } = Astro.props;
       }
     </style>
   </head>
+
+  <body>
+    <a class="skip-link" href="#site-nav">Skip to menu</a>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#site-footer">Skip to footer</a>
+
+    <header class="site-header" id="site-nav" data-site-header>
+      <div class="nav-inner">
+        <a href="/" class="logo">NYPL Explorer</a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          data-nav-toggle
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav-links" data-nav-links aria-label="Main navigation">
+          <a href="/">Home</a>
+          <a href="/map">Map</a>
+          <a href="/news">News</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer" id="site-footer">
+      <div class="footer-content">
+        <img
+          src="/images/NY Public Library_id4m1fjMQJ_1.svg"
+          alt="New York Public Library logo"
+          class="footer-logo"
+        />
+        <p>
+          This website is made by Forough Dabbagh (Dana) for the final project of
+          CSE-12 class – Fall 2025.
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
-<body>
-  <header class="site-header" data-site-header>
-    <div class="nav-inner">
-      <a href="/" class="logo">NYPL Explorer</a>
-
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-label="Toggle navigation"
-        aria-expanded="false"
-        data-nav-toggle
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav class="nav-links" data-nav-links>
-        <a href="/">Home</a>
-        <a href="/map">Map</a>
-        <a href="/news">News</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <slot />
-  </main>
-</body>
-<footer class="site-footer">
-  <div class="footer-content">
-    <img
-      src="/images/NY Public Library_id4m1fjMQJ_1.svg"
-      alt="New York Public Library logo"
-      class="footer-logo"
-    />
-    <p>This website is made by Forough Dabagh (Dana) for the final project of CSE-12 class-Fall 2025.</p>
-  </div>
-</footer>
