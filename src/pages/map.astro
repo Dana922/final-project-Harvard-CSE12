@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="NYPL Explorer — Map">
+  {/* 🔹 Leaflet CSS & JS + Map Script */}
+  <Fragment slot="head">
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <!-- Leaflet JS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <!-- Map Script -->
+
+    <script src="/scripts/map.js" defer></script>
+  </Fragment>
+
+  {/* Page content */}
+  <main class="map-page">
+    <header class="map-hero">
+      <h1>NYC Public Libraries Map</h1>
+      <p>
+        Explore NYPL, Brooklyn, and Queens library locations on an interactive
+        map.
+      </p>
+    </header>
+
+    <div id="map_container"></div>
+  </main>
+
+  <style>
+    .map-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    .map-hero h1 {
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+    }
+
+    .map-hero p {
+      margin: 0 0 1rem;
+      opacity: 0.85;
+    }
+
+    #map_container {
+      height: 550px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      #map_container {
+        height: 420px;
+      }
+    }
+  </style>
+</BaseLayout>

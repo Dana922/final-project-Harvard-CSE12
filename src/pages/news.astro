@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const BLOG_URL = "https://www.nypl.org/blog";
+---
+
+<BaseLayout title="NYPL Explorer — News">
+  <main class="container">
+    <header class="hero">
+      <div class="hero-card">
+        <h1>Latest from the NYPL Blog</h1>
+        <p>
+          Explore news, staff picks, and stories from The New York Public
+          Library’s official blog.
+        </p>
+        <a
+          class="hero-link"
+          href={BLOG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open blog in a new tab →
+        </a>
+      </div>
+    </header>
+
+    <section class="news-embed" aria-label="NYPL Blog">
+      <iframe
+        src={BLOG_URL}
+        title="NYPL Blog"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <p class="fallback">
+      If the feed doesn’t load, you can visit the blog directly:
+      <a href={BLOG_URL} target="_blank" rel="noopener noreferrer">
+        https://www.nypl.org/blog
+      </a>
+    </p>
+  </main>
+
+  <style>
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .hero {
+      margin: 1rem 0 2rem;
+    }
+
+    .hero-card {
+      border: 2px solid #facc15;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      background: #fffbeb;
+    }
+
+    .hero-card h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 3vw, 2.4rem);
+    }
+
+    .hero-card p {
+      margin: 0 0 0.75rem;
+      opacity: 0.9;
+    }
+
+    .hero-link {
+      display: inline-block;
+      margin-top: 0.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #92400e;
+    }
+
+    .hero-link:hover {
+      text-decoration: underline;
+    }
+
+    .news-embed {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .news-embed iframe {
+      width: 100%;
+      min-height: 650px;
+      border: none;
+      background: white;
+    }
+
+    .fallback {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+  </style>
+</BaseLayout>
