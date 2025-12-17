@@ -93,3 +93,8 @@ Please refer to the attached png's labeled with name of each page for the skelet
 ### Surface
 
 Please refer to the attached png's labeled with name of each page for the surface of the pages/website.
+
+
+### looking back at the project and the learnings 
+
+The most challenging part of this project was deployment. I needed to push all files correctly to my personal GitHub repository and deploy the site using Cloudflare. The deployment did not work correctly at first—although the site worked locally, the map and contact form failed to render in the deployed version. I later realized that some imports used relative paths that were not recognized during deployment. In addition, duplicate files and missing assets (some of which were ignored by .gitignore) caused further issues. Resolving these problems required me to better understand the deployment process, clean up file structure conflicts, and learn new ways of managing and pushing changes through the terminal.
