@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import contactScript from "../scripts/contact.js?url";
 ---
 
 <BaseLayout title="NYPL Explorer — Contact">
@@ -76,7 +75,8 @@ import contactScript from "../scripts/contact.js?url";
     </form>
   </main>
 
-  <script type="module" src={contactScript}></script>
+  <script src="/dist/pristine.js" defer></script>
+  <script type="module" src="/scripts/contact.js"></script>
 
   <style>
     .container {

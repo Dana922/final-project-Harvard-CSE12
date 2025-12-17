@@ -2,6 +2,9 @@
 
 ### This project is a multi-page website built with **Astro** that explores data and content from the **New York Public Library (NYPL)**. It demonstrates client-side JavaScript, API usage, maps, form validation, and responsive layout techniques.
 
+Public URL for Live Website hosted on Cloudflare
+https://final-project-harvard-cse12.pages.dev/
+
 To do:
 
 - [ ] Build the Astro and make sure Astro runs using Npm
@@ -15,11 +18,11 @@ To do:
 
 ## Installation and Running
 
---- npm install
---- Npm create@astro lastest
---- Npm run dev
---- Npm run build
---- Npm run preview
+- npm install
+- Npm create@astro lastest
+- Npm run dev
+- Npm run build
+- Npm run preview
 
 ## How requirements are met
 
