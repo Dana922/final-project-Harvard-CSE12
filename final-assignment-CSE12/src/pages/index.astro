@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const NYPL_API_BASE = "https://api.repo.nypl.org/api/v2";
+
+const NYPL_TOKEN = "umi7qsqn9w0dtm2d";
+
+async function fetchCollections() {
+  const url = new URL(`${NYPL_API_BASE}/collections`);
+  // I chose to limit to 25 collections for faster loading/testing
+  url.searchParams.set("per_page", "25");
+
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Token token=${NYPL_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    return {
+      error: `NYPL /collections request failed: ${res.status} ${res.statusText}`,
+      collections: [],
+    };
+  }
+
+  const data = await res.json();
+
+  const raw = data?.nyplAPI?.response?.collection ?? [];
+
+  const collections = (Array.isArray(raw) ? raw : []).map((c) => {
+    const numItems = c?.numItems ? Number(c.numItems) : null;
+    const numberOfDigitizedItems = c?.numberOfDigitizedItems
+      ? Number(c.numberOfDigitizedItems)
+      : null;
+
+    return {
+      uuid: c.uuid,
+      title: c.title ?? "Untitled collection",
+      url: c.url,
+      apiUri: c.apiUri,
+      imageID: c.imageID,
+      containsOnSiteMaterials: c.containsOnSiteMaterials === "true",
+      numItems,
+      numberOfDigitizedItems,
+    };
+  });
+
+  return { error: null, collections };
+}
+
+const { error, collections } = await fetchCollections();
+---
+
+<BaseLayout title="NYPL Explorer — Home">
+  <main class="container">
+    <header class="hero">
+      <h1>Explore NYPL Digital Collections</h1>
+      <p>Browse collections as “categories”.</p>
+    </header>
+
+    {
+      error ? (
+        <section class="error">
+          <h2>Couldn’t load categories</h2>
+          <p>{error}</p>
+          <p class="hint">
+            If you’re testing locally, add your NYPL token. In production, store
+            it as an environment variable.
+          </p>
+        </section>
+      ) : (
+        <section aria-label="NYPL categories" class="grid">
+          {collections.map((col) => (
+            <a
+              class="card"
+              href={col.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-uuid={col.uuid}
+            >
+              <h2>{col.title}</h2>
+
+              {col.numItems ? (
+                <p>
+                  {col.numItems.toLocaleString()} items
+                  {col.numberOfDigitizedItems &&
+                    col.numberOfDigitizedItems !== col.numItems && (
+                      <>
+                        {" · "}
+                        {col.numberOfDigitizedItems.toLocaleString()} digitized
+                      </>
+                    )}
+                </p>
+              ) : (
+                <p class="muted">View items in this collection →</p>
+              )}
+            </a>
+          ))}
+        </section>
+      )
+    }
+  </main>
+
+  <style>
+    :root {
+      --nypl-yellow: #f7c948;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .hero {
+      margin: 1rem 0 2rem;
+      padding: 1.25rem 1.5rem;
+      border: 2px solid var(--nypl-yellow);
+      border-radius: 14px;
+      background: #fffbe6;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      margin: 0 0 0.5rem;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    .error {
+      padding: 1rem;
+      border: 1px solid rgba(255, 0, 0, 0.25);
+      border-radius: 12px;
+    }
+
+    .hint {
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 1.25rem;
+    }
+
+    .card {
+      display: block;
+      padding: 1rem;
+      border: 2px solid var(--nypl-yellow);
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition:
+        transform 0.12s ease,
+        border-color 0.12s ease,
+        box-shadow 0.12s ease;
+      background: #fffdf5;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #e0aa00;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+      line-height: 1.25;
+    }
+
+    .card p {
+      margin: 0;
+      opacity: 0.85;
+      font-size: 0.95rem;
+    }
+
+    .muted {
+      opacity: 0.65;
+    }
+  </style>
+</BaseLayout>
