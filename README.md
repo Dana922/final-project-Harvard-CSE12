@@ -15,11 +15,11 @@ To do:
 
 ## Installation and Running
 
-npm install
-Npmcreate@astro lastest
-Npm run dev
-Npm run build
-Npm run preview
+--- npm install
+--- Npm create@astro lastest
+--- Npm run dev
+--- Npm run build
+--- Npm run preview
 
 ## How requirements are met
 
