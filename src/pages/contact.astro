@@ -1,0 +1,162 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import contactScript from "../scripts/contact.js?url";
+---
+
+<BaseLayout title="NYPL Explorer — Contact">
+  <main class="container">
+    <header class="hero">
+      <h1>Contact Us</h1>
+      <p>
+        Have a question or feedback? Fill out the form below and we’ll get back
+        to you.
+      </p>
+    </header>
+
+    <form
+      id="form1"
+      class="contact-form"
+      method="post"
+      action="https://cs12.net/form/submit.php"
+      novalidate
+    >
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          data-pristine-required-message="Name is required"
+        />
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          data-pristine-required-message="Email is required"
+          data-pristine-email-message="Please enter a valid email address"
+        />
+      </div>
+
+      <div class="field">
+        <label for="subject">Subject</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          required
+          data-pristine-required-message="Subject is required"
+        />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          data-pristine-required-message="Message cannot be empty"></textarea>
+      </div>
+
+      <!-- Hidden fields required by CS12 form handler -->
+      <input type="hidden" name="__mailto" value="your-email@example.com" />
+      <input
+        type="hidden"
+        name="__mailkey"
+        value="cscie12-fall-2023-yourNetID"
+      />
+
+      <button type="submit" class="submit-btn"> Submit Message </button>
+    </form>
+  </main>
+
+  <script type="module" src={contactScript}></script>
+
+  <style>
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .hero {
+      margin-bottom: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      border: 2px solid #facc15;
+      border-radius: 14px;
+      background: #fffbeb;
+    }
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+    }
+    .hero p {
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    .contact-form {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      padding: 0.6rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #facc15;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
+    }
+
+    .submit-btn {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: #facc15;
+      color: #111827;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #eab308;
+    }
+
+    .pristine-error {
+      color: #dc2626;
+      font-size: 0.85rem;
+      margin-top: 0.15rem;
+    }
+    .has-danger input,
+    .has-danger textarea {
+      border-color: #dc2626;
+    }
+  </style>
+</BaseLayout>
