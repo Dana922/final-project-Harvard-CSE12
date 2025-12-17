@@ -31,7 +31,7 @@ To do:
 
 ### where is API taken from
 
-where is the api taken from: NYPL API : https://api.repo.nypl.org/#
+where is the api taken from:NYPL API : https://api.repo.nypl.org/#
 token : NYPL_TOKEN = "umi7qsqn9w0dtm2d"
 both are available in the index.astro
 
@@ -42,11 +42,11 @@ both are available in the index.astro
 Create a simple, user-friendly website to show NY public library digital collection, build separate pages to have the map with the branch locations.
 news page and a contact page with a unctioning form to submit any messages to NYPL.
 
-### Use of javascript in browser 
+### Use of javascript in browser
 
-nav.js
-Map.js
-contact.js and pristine.js
+ - nav.js
+ - Map.js
+ - contact.js and pristine.js
 
 <Go deeper>
 I built a form in contact page and used pristine for form validation and made the submission action button functional.
