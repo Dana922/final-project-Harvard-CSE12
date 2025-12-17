@@ -1,11 +1,10 @@
-import Pristine from "pristinejs";
 
 if (typeof window !== "undefined") {
   window.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form1");
     if (!form) return;
 
-    const pristine = new Pristine(form, {
+    const pristine = new window.Pristine(form, {
       classTo: "field",
       errorTextParent: "field",
       errorTextTag: "div",
